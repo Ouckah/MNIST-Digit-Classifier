@@ -36,3 +36,34 @@ def init_params():
     b2 = np.random.rand(10, 1) - 0.5
 
     return W1, b1, W2, b2
+
+
+def ReLU(Z):
+    '''
+    Pythonic ReLU function.
+    '''
+
+    return np.maximum(0, Z)
+
+def softmax(Z):
+    '''
+    Pythonic softmax activation function.
+    '''
+
+    return np.exp(Z) / sum(np.exp(Z))
+
+# forward propagation
+def forward_prop(W1, b1, W2, b2, X):
+    '''
+    Runs the data from the input nodes to the output nodes in a 
+    forward motion.
+
+    X -- represents the input data / input layer
+    '''
+
+    z1 = W1.dot(X) + b1
+    A1 = ReLU(z1)
+    z2 = W2.dot(A1) + b2
+    A2 = softmax(z2)
+
+    return z1, A1, z2, A2
