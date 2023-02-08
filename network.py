@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import matplotlib as plt
+from matplotlib import pyplot as plt
 
 
 # retrieve testing and training data
