@@ -105,3 +105,43 @@ def back_prop(z1, A1, z2, A2, W1, W2, X, Y):
     db1 = 1 / m * np.sum(dz1)
 
     return dW1, db1, dW2, db2
+
+
+def get_predictions(A2):
+    return np.argmax(A2, 0)
+
+def get_accuracy(predictions, Y):
+    return np.sum(predictions == Y) / Y.size
+
+def make_predictions(X, W1, b1, W2, b2):
+    _, _, _, A2 = forward_prop(W1, b1, W2, b2, X)
+    predictions = get_predictions(A2)
+
+    return predictions
+
+# update parameters
+def update_params(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha):
+    '''
+    Adjusts the weights and biases after front and back propagation is
+    completed.
+    '''
+
+    W1 = W1 - alpha * dW1
+    b1 = b1 - alpha * db1
+    W2 = W2 - alpha * dW2
+    b2 = b2 - alpha * db2
+
+    return W1, b1, W2, b2
+
+# gradient descent
+def gradient_descent(X, Y, iterations, alpha):
+    W1, b1, W2, b2 = init_params()
+    for i in range(iterations):
+        z1, A1, z2, A2 = forward_prop(W1, b1, W2, b2, X)
+        dW1, db1, dW2, db2 = back_prop(z1, A1, z2, A2, W1, W2, X, Y)
+        W1, b1, W2, b2 = update_params(W1, b1, W2, b2, dW1, db1, dW2, db2, alpha)
+        if i % 50 == 0:
+            print('Iteration: ', i)
+            print('Accuracy: ', get_accuracy(get_predictions(A2), Y))
+
+    return W1, b1, W2, b2
