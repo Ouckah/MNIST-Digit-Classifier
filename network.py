@@ -67,3 +67,41 @@ def forward_prop(W1, b1, W2, b2, X):
     A2 = softmax(z2)
 
     return z1, A1, z2, A2
+
+
+def one_hot(Y):
+    '''
+    Formats the expected value into an array of the correct size and format.
+    '''
+
+    one_hot_Y = np.zeros((Y.size, Y.max() + 1))
+    one_hot_Y[np.arange(Y.size), Y] = 1
+    one_hot_Y = one_hot_Y.T
+
+    return one_hot_Y
+
+def deriv_ReLU(Z):
+    '''
+    Pythonic derivative of ReLU function.
+    '''
+
+    return Z > 0
+
+# backward propagation
+def back_prop(z1, A1, z2, A2, W1, W2, X, Y):
+    '''
+    Runs the data from the output nodes to the input nodes and
+    calculates the error in a backward motion.
+    '''
+
+    m = Y.size
+    one_hot_Y = one_hot(Y)
+
+    dz2 = 2 * (A2 - one_hot_Y)
+    dW2 = 1 / m * dz2.dot(A1.T)
+    db2 = 1 / m * np.sum(dz2)
+    dz1 = W2.T.dot(dz2) * deriv_ReLU(z1)
+    dW1 = 1 / m * dz1.dot(X.T)
+    db1 = 1 / m * np.sum(dz1)
+
+    return dW1, db1, dW2, db2
