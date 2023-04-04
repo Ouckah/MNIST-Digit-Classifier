@@ -11,4 +11,4 @@ All the information along with said thought process can be viewed in the noteboo
 Samson Zhang - "Building a neural network FROM SCRATCH (no Tensorflow/Pytorch, just numpy & math)" - https://www.youtube.com/watch?v=w8yWXqWQYmU
 
 ## Online Notebook
-Aidan Ouckama - "MNIST Digit Classifier from Scratch" - https://www.kaggle.com/ouckah/mnist-digit-classifier-from-scratch/edit
+Aidan Ouckama - "MNIST Digit Classifier from Scratch" - https://www.kaggle.com/code/ouckah/mnist-digit-classifier-from-scratch/notebook
